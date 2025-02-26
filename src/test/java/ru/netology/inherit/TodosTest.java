@@ -71,4 +71,67 @@ public class TodosTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldSearchInTodosFew() {
+        SimpleTask simpleTask = new SimpleTask(1, "Сделать домашнее задание");
+
+        String[] subtasks = {"Прочитать главу", "Просмотреть видео", "Пройти опрос", "Сделать домашнее задание"};
+        Epic epic = new Epic(3, subtasks);
+
+        Meeting meeting = new Meeting(3, "Сделать задание", "Обучение", "1 марта в 12:00");
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] expected = {simpleTask, epic};
+        Task[] actual = todos.search("домашнее");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchInTodosOne() {
+        SimpleTask simpleTask = new SimpleTask(1, "Сделать домашнее задание");
+
+        String[] subtasks = {"Прочитать главу", "Просмотреть видео", "Пройти опрос", "Сделать задание"};
+        Epic epic = new Epic(3, subtasks);
+
+        Meeting meeting = new Meeting(3, "Сделать задание", "Обучение", "1 марта в 12:00");
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] expected = {simpleTask};
+        Task[] actual = todos.search("домашнее");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchInTodosNoOne() {
+        SimpleTask simpleTask = new SimpleTask(1, "Сделать домашнее задание");
+
+        String[] subtasks = {"Прочитать главу", "Просмотреть видео", "Пройти опрос", "Сделать домашнее задание"};
+        Epic epic = new Epic(3, subtasks);
+
+        Meeting meeting = new Meeting(3, "Сделать домашнее задание", "Обучение", "1 марта в 12:00");
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] expected = {};
+        Task[] actual = todos.search("Проверить");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
